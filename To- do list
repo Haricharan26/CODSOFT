@@ -1,1 +1,62 @@
+from tkinter import *
+from tkinter.font import Font
 
+root=Tk()
+root.title("To-Do List")
+root.geometry("500x500")
+
+# Font Definition
+
+myfont=Font(family="Times New Roman",
+            size=30,
+            weight='bold')
+
+myframe= Frame(root)
+myframe.pack(pady=10)
+
+mylist= Listbox(myframe,
+                font=myfont,
+                width=25,
+                height=5,
+                bg="SystemButtonFace",
+                bd=0,
+                fg="#464646",
+               
+               
+                )
+mylist.pack()
+stuff=[]
+for item in stuff:
+    mylist.insert(END, item)
+   
+my_scrollbar=Scrollbar(myframe)
+my_scrollbar.pack(side=RIGHT,fill=BOTH)
+
+mylist.config(yscrollcommand=my_scrollbar.set)
+my_scrollbar.config(command=mylist.yview)
+
+myentry=Entry(root,font=("Times New Roman",24))
+myentry.pack(pady=20)
+
+buttonframe=Frame(root)
+buttonframe.pack(pady=20)
+
+def add_item():
+    mylist.insert(END, myentry.get())
+    myentry.delete(0,END)
+   
+def delete_item():
+    mylist.delete(ANCHOR)
+
+def edit_item():
+    mylist.delete(ANCHOR)
+    mylist.insert(END, myentry.get())
+    myentry.delete(0,END)
+
+addbutton=Button(buttonframe,text="Add Item",command=add_item)
+deletebutton=Button(buttonframe,text="Delete Item",command=delete_item)
+editbutton=Button(buttonframe,text="Edit Item",command=edit_item)
+
+addbutton.grid(row=0, column=0)
+deletebutton.grid(row=0, column=1,padx=20)
+editbutton.grid(row=0, column=2,padx=20)
